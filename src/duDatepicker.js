@@ -93,8 +93,12 @@ class _duDatePicker {
 		this.minDate = _.input.dataset.mindate || _.config.minDate
 		this.maxDate = _.input.dataset.maxdate || _.config.maxDate
 
-		// current selected date, default is today if no value given
-		let _date = new Date()
+		// current selected date, default is min{today,maxDate} if no value given
+		let _date = new Date()	
+		if(this.maxDate){
+			const maxDateObj = this.maxDate === 'today' ? _._getToday() : new Date(this.maxDate);
+			_date = maxDateObj.getTime() < _date.getTime() ? maxDateObj: _date
+		}
 
 		if (_.config.range) {
 			let value = (_.input.value || _.config.value) || '', _range = value ? value.split(_.config.rangeDelim) : []
@@ -979,7 +983,7 @@ class _duDatePicker {
 				hf.jsonToDate(_.selected)
 
 		picker.header.selectedYear.innerText = selected.getFullYear()
-		picker.header.selectedDate.innerText = hf.formatDate.call(_, selected, SELECTED_FORMAT)
+		picker.header.selectedDate.innerText = hf.formatDate.call(_, selected, _.config.selectFormat)
 	}
 	/**
 	 * Determines if the value(s) given can be set as the date picker's value (constraint check on minDate, maxDate, minYear, maxYear)

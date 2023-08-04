@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Date Picker Plugin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="../dist/duDatepicker.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../dist/duDatepicker-theme.css"
+    />
+    <script type="text/javascript" src="../dist/duDatepicker.js"></script>
+
+    <style type="text/css">
+      html,
+      body {
+        min-height: 100%;
+        background-color: #f5f5f5;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .stats {
+        margin-bottom: 12px;
+      }
+      .stats a {
+        text-decoration: none;
+      }
+      .stats a + a {
+        margin-left: 8px;
+      }
+      #logger {
+        margin-top: 24px;
+      }
+      #logger span {
+        display: block;
+      }
+      #logger textarea {
+        width: 400px;
+        max-width: 100%;
+        margin-top: 4px;
+        resize: none;
+      }
+      #dp-holder {
+        position: relative;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="datepicker-input" placeholder="please select" />
+  </body>
+
+  <script>
+    duDatepicker("#datepicker-input", {
+      maxDate: "2018-01-01",
+      i18n: "ja",
+      format: "YYYY-MM-DD",
+    });
+  </script>
+</html>
