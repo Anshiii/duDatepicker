@@ -93,16 +93,8 @@ class _duDatePicker {
 		this.minDate = _.input.dataset.mindate || _.config.minDate
 		this.maxDate = _.input.dataset.maxdate || _.config.maxDate
 
-		// current selected date, default is min{today,maxDate} if no value given
-		let _date = new Date()			
-		if(this.maxDate){
-			const maxDateObj = this.maxDate === 'today' ? _._getToday() : new Date(this.maxDate);
-			_date = maxDateObj.getTime() < _date.getTime() ? maxDateObj: _date
-		}
-		if(this.minDate){
-			const minDateObj = this.minDate === 'today' ? _._getToday() : new Date(this.minDate);
-			_date = minDateObj.getTime() > _date.getTime() ? minDateObj: _date
-		}
+		// current selected date, default is min[minDate,today,maxDate] if no value given
+		let _date = this._getDefault();
 
 		if (_.config.range) {
 			let value = (_.input.value || _.config.value) || '', _range = value ? value.split(_.config.rangeDelim) : []
@@ -190,7 +182,7 @@ class _duDatePicker {
 
 			hf.setAttributes(_.input, { 'value': dates.map(d => hf.formatDate.call(_, d, _.config.outFormat || _.config.format)).join(',') })
 		} else {
-			let date = _.input.value === '' ? _date : hf.parseDate.call(_, _.input.value).date
+			let date = _.input.value === '' ? this._getDefault() : hf.parseDate.call(_, _.input.value).date
 			
 			let canSet = _._canSetValue('default', date)
 			if (!canSet.canSet) {
@@ -416,6 +408,19 @@ class _duDatePicker {
 		let now = new Date()
 		return new Date(now.getFullYear(), now.getMonth(), now.getDate())
 	}
+
+	/**
+	 * Gets the default date dependent on minDate & maxDate
+	 */
+	_getDefault(){
+		let defaultDate = new Date();
+		if (this._beyondMinMax(defaultDate)) {
+		  let lessDate = this.minDate ? this.minDate : this.maxDate;
+		  defaultDate = new Date(lessDate);
+		}
+		return defaultDate;
+	}
+
 	/**
 	 * Determines if date is in the selected date range
 	 * @param {Date} date Date object
@@ -1034,6 +1039,7 @@ class _duDatePicker {
 			remarks: `"${invalidDate}" is beyond the selectable date(s). Kindly check minDate, maxDate, minYear or maxYear configurations.`
 		}
 	}
+	
 	/**
 	 * Sets the value of the input
 	 * @param {(string|Date|string[])} value The new input value. If the value specified is a string, it will be parsed using `config.format`.
@@ -1123,7 +1129,7 @@ class _duDatePicker {
 				dates: _empty ? [] : _.dates.map(d => hf.formatDate.call(_, d, _.config.outFormat || _.config.format))
 			}
 		} else {
-			let date = typeof value === 'string' ? (_empty ? new Date() : hf.parseDate.call(_, value, _.config.format).date) : value,
+			let date = typeof value === 'string' ? (_empty ? this._getDefault() : hf.parseDate.call(_, value, _.config.format).date) : value,
 				formatted = _empty ? '' : hf.formatDate.call(_, date, _.config.format)
 			
 			let canSet = _._canSetValue('default', date)

@@ -26,7 +26,7 @@ export const DEFAULTS = {
     // Determines the date format of the 'datechanged' callback; 'format' config will be used by default
     outFormat: null,
     // Default header selected date format
-    selectFormat: 'mmm d ,DD',
+    selectFormat: 'mmm d , DD',
     // Determines the color theme of the date picker
     theme: 'blue',
     // Determines if clicking the date will automatically select it; OK button will not be displayed if true
