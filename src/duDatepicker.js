@@ -94,10 +94,14 @@ class _duDatePicker {
 		this.maxDate = _.input.dataset.maxdate || _.config.maxDate
 
 		// current selected date, default is min{today,maxDate} if no value given
-		let _date = new Date()	
+		let _date = new Date()			
 		if(this.maxDate){
 			const maxDateObj = this.maxDate === 'today' ? _._getToday() : new Date(this.maxDate);
 			_date = maxDateObj.getTime() < _date.getTime() ? maxDateObj: _date
+		}
+		if(this.minDate){
+			const minDateObj = this.minDate === 'today' ? _._getToday() : new Date(this.minDate);
+			_date = minDateObj.getTime() > _date.getTime() ? minDateObj: _date
 		}
 
 		if (_.config.range) {

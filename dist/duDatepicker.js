@@ -5018,6 +5018,10 @@
         var maxDateObj = this.maxDate === 'today' ? _._getToday() : new Date(this.maxDate);
         _date = maxDateObj.getTime() < _date.getTime() ? maxDateObj : _date;
       }
+      if (this.minDate) {
+        var minDateObj = this.minDate === 'today' ? _._getToday() : new Date(this.minDate);
+        _date = minDateObj.getTime() > _date.getTime() ? minDateObj : _date;
+      }
       if (_.config.range) {
         var value = _.input.value || _.config.value || '',
           _range = value ? value.split(_.config.rangeDelim) : [];
