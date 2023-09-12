@@ -48,6 +48,8 @@ $calHdrSize: 48px;        // calendar header height
         box-shadow: $shadow;
         transition: transform .25s cubic-bezier(0.4, 0.0, 0.2, 1), opacity .25s cubic-bezier(0.4, 0.0, 0.2, 1);
         will-change: transform, -moz-transform, opacity;
+        background: #fff;
+        align-items: center;
     }
 
     .dudp__calendar-header {
@@ -55,6 +57,8 @@ $calHdrSize: 48px;        // calendar header height
         padding: 20px;
         color: $headerColor;
         box-sizing: content-box;
+        width: 100%;
+        box-sizing: border-box;
 
         .dudp__sel-year,
         .dcp_sel-date { 
