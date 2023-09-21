@@ -5546,7 +5546,7 @@
       key: "_getYears",
       value: function _getYears() {
         var _ = this,
-          limits = _._getYearLimits(true),
+          limits = _._getYearLimits(false),
           _minYear = limits.minYear,
           _maxYear = limits.maxYear,
           _years = [];
