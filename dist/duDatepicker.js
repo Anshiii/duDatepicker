@@ -5532,8 +5532,8 @@
           _maxCandidates = [yearsView ? _.viewYear + _.config.laterYears : null, _.config.maxYear, maxDate ? maxDate.getFullYear() : null].filter(function (x) {
             return x != null;
           }),
-          minYear = _minCandidates.length > 0 ? Math.max.apply(Math, _toConsumableArray(_minCandidates)) : null,
-          maxYear = _maxCandidates.length > 0 ? Math.min.apply(Math, _toConsumableArray(_maxCandidates)) : null;
+          minYear = _minCandidates.length > 0 ? Math.max.apply(Math, _toConsumableArray(_minCandidates)) : _.viewYear - _.config.priorYears,
+          maxYear = _maxCandidates.length > 0 ? Math.min.apply(Math, _toConsumableArray(_maxCandidates)) : _.viewYear + _.config.laterYears;
         return {
           minYear: minYear,
           maxYear: maxYear

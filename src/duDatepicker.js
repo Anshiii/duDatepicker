@@ -646,8 +646,8 @@ class _duDatePicker {
 		
 		let _minCandidates = [yearsView ? _.viewYear - _.config.priorYears : null, _.config.minYear, minDate ? minDate.getFullYear() : null].filter(x => x != null),
 			_maxCandidates = [yearsView ? _.viewYear + _.config.laterYears : null, _.config.maxYear, maxDate ? maxDate.getFullYear() : null].filter(x => x != null),
-			minYear = _minCandidates.length > 0 ? Math.max(..._minCandidates) : null,
-			maxYear = _maxCandidates.length > 0 ? Math.min(..._maxCandidates) : null
+			minYear = _minCandidates.length > 0 ? Math.max(..._minCandidates) : _.viewYear - _.config.priorYears,
+			maxYear = _maxCandidates.length > 0 ? Math.min(..._maxCandidates) : _.viewYear + _.config.laterYears
 
 		return { minYear, maxYear }
 	}
