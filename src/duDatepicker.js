@@ -107,7 +107,7 @@ class _duDatePicker {
 
 			let canSet = _._canSetValue('range', { from: _from, to: _to })
 			if (!canSet.canSet) {
-				throw new Error(canSet.remarks)
+				console.warn(canSet.remarks)
 			}
 
 			this.dateFrom = _from
@@ -170,7 +170,7 @@ class _duDatePicker {
 			
 			let canSet = _._canSetValue('multiple', dates)
 			if (!canSet.canSet) {
-				throw new Error(canSet.remarks)
+				console.warn(canSet.remarks)
 			}
 
 			let starting = dates.length > 0 ? dates.reduce((a, b) => { return a < b ? a : b; }) : new Date()
@@ -186,7 +186,7 @@ class _duDatePicker {
 			
 			let canSet = _._canSetValue('default', date)
 			if (!canSet.canSet) {
-				throw new Error(canSet.remarks)
+				console.warn(canSet.remarks)
 			}
 
 			this.date = date
@@ -849,6 +849,7 @@ class _duDatePicker {
 				hf.appendTo(_._getYears(), yearsView)
 
 				let _selYear = yearsView.querySelector('.dudp__year.selected')
+				if(!_selYear) _selYear = yearsView.lastElementChild;
 
 				yearsView.scrollTop = _selYear.offsetTop - 120
 
@@ -1067,7 +1068,8 @@ class _duDatePicker {
 
 			let canSet = _._canSetValue('range', { from: _from, to: _to })
 			if (!canSet.canSet) {
-				throw new Error(canSet.remarks)
+				console.warn(canSet.remarks)
+				
 			}
 
 			_.dateFrom = _from
@@ -1115,7 +1117,7 @@ class _duDatePicker {
 
 			let canSet = _._canSetValue('multiple', dates)
 			if (!canSet.canSet) {
-				throw new Error(canSet.remarks)
+				console.warn(canSet.remarks)
 			}
 
 			_.dates = [...dates]
@@ -1134,7 +1136,7 @@ class _duDatePicker {
 			
 			let canSet = _._canSetValue('default', date)
 			if (!canSet.canSet) {
-				throw new Error(canSet.remarks)
+				console.warn(canSet.remarks)
 			}
 
 			_.date = date

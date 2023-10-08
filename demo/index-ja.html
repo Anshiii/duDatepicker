@@ -54,10 +54,12 @@
   </body>
 
   <script>
-    duDatepicker("#datepicker-input", {
+    const obj = duDatepicker("#datepicker-input", {
       maxDate: "2025-01-01",
+      minDate: "2024-12-01",
       i18n: "ja",
-      clearBtn: true
+      clearBtn: true,
     });
+    duDatepicker("#datepicker-input", "setValue", "02/01/2026");
   </script>
 </html>

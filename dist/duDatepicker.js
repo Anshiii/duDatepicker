@@ -5025,7 +5025,7 @@
           to: _to
         });
         if (!canSet.canSet) {
-          throw new Error(canSet.remarks);
+          console.warn(canSet.remarks);
         }
         this.dateFrom = _from;
         this.dateTo = _to;
@@ -5082,7 +5082,7 @@
         });
         var _canSet = _._canSetValue('multiple', dates);
         if (!_canSet.canSet) {
-          throw new Error(_canSet.remarks);
+          console.warn(_canSet.remarks);
         }
         var starting = dates.length > 0 ? dates.reduce(function (a, b) {
           return a < b ? a : b;
@@ -5100,7 +5100,7 @@
         var date = _.input.value === '' ? this._getDefault() : hf.parseDate.call(_, _.input.value).date;
         var _canSet2 = _._canSetValue('default', date);
         if (!_canSet2.canSet) {
-          throw new Error(_canSet2.remarks);
+          console.warn(_canSet2.remarks);
         }
         this.date = date;
         this.selected = hf.dateToJson(_.date);
@@ -5749,6 +5749,7 @@
             hf.empty(yearsView);
             hf.appendTo(_._getYears(), yearsView);
             var _selYear = yearsView.querySelector('.dudp__year.selected');
+            if (!_selYear) _selYear = yearsView.lastElementChild;
             yearsView.scrollTop = _selYear.offsetTop - 120;
             picker.calendarHolder.btnPrev.classList.add(hc);
             picker.calendarHolder.btnNext.classList.add(hc);
@@ -5957,7 +5958,7 @@
             to: _to
           });
           if (!canSet.canSet) {
-            throw new Error(canSet.remarks);
+            console.warn(canSet.remarks);
           }
           _.dateFrom = _from;
           _.dateTo = _to;
@@ -6005,7 +6006,7 @@
           });
           var _canSet3 = _._canSetValue('multiple', dates);
           if (!_canSet3.canSet) {
-            throw new Error(_canSet3.remarks);
+            console.warn(_canSet3.remarks);
           }
           _.dates = _toConsumableArray(dates);
           _.viewYear = starting.getFullYear();
@@ -6026,7 +6027,7 @@
             formatted = _empty ? '' : hf.formatDate.call(_, date, _.config.format);
           var _canSet4 = _._canSetValue('default', date);
           if (!_canSet4.canSet) {
-            throw new Error(_canSet4.remarks);
+            console.warn(_canSet4.remarks);
           }
           _.date = date;
           _.viewYear = date.getFullYear();
