@@ -4831,6 +4831,8 @@
    * Default date picker configurations
    */
   var DEFAULTS = {
+    // default select date (not value)
+    defaultSelect: null,
     // Default input value (should be formatted as specified in the 'format' configuration)
     value: null,
     // Determines the date format
@@ -5309,8 +5311,11 @@
       value: function _getDefault() {
         var defaultDate = new Date();
         if (this._beyondMinMax(defaultDate)) {
-          var lessDate = this.minDate ? this.minDate : this.maxDate;
-          defaultDate = new Date(lessDate);
+          var select = this.minDate ? this.minDate : this.maxDate;
+          if (this.config.defaultSelect) {
+            select = this.config.defaultSelect;
+          }
+          defaultDate = new Date(select);
         }
         return defaultDate;
       }

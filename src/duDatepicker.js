@@ -415,8 +415,11 @@ class _duDatePicker {
 	_getDefault(){
 		let defaultDate = new Date();
 		if (this._beyondMinMax(defaultDate)) {
-		  let lessDate = this.minDate ? this.minDate : this.maxDate;
-		  defaultDate = new Date(lessDate);
+		let select = this.minDate ? this.minDate : this.maxDate;
+		if (this.config.defaultSelect) {
+			select = this.config.defaultSelect;
+		}
+		defaultDate = new Date(select);
 		}
 		return defaultDate;
 	}
