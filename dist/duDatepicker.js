@@ -4754,7 +4754,9 @@
     /**
      * English
      */
-    en: new Locale('January_February_March_April_May_June_July_August_September_October_November_December'.split('_'), null, 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'), null, null, 7),
+    en: new Locale('January_February_March_April_May_June_July_August_September_October_November_December'.split('_'), null, 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'), null, 'Sun_Mon_Tue_Wed_Thur_Fri_Sat'.split('_'), 7, {
+      btnOk: 'Select'
+    }),
     /**
      * Russian
      */
@@ -4794,22 +4796,29 @@
     /**
      * Japanese
      */
-    ja: new Locale('一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'), '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'), '日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日'.split('_'), '日曜_月曜_火曜_水曜_木曜_金曜_土曜'.split('_'), '日_月_火_水_木_金_土'.split('_'), 7),
+    ja: new Locale('1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'), null, '日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日'.split('_'), '日曜_月曜_火曜_水曜_木曜_金曜_土曜'.split('_'), '日_月_火_水_木_金_土'.split('_'), 7, {
+      btnOk: '選択する'
+    }),
     /**
      * Portuguese
      */
-    pt: new Locale('Janeiro_Evereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'), null, 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 'D_S_T_Q_Q_S_S'.split('_'), 1, {
+    pt: new Locale('janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'), null, 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'), 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 1, {
+      btnOk: 'Selecione',
       btnCancel: 'Cancelar',
       btnClear: 'Clarear'
     }),
     /**
      * Vietnamese
      */
-    vi: new Locale('Tháng 1_Tháng 2_Tháng 3_Tháng 4_Tháng 5_Tháng 6_Tháng 7_Tháng 8_Tháng 9_Tháng 10_Tháng 11_Tháng 12'.split('_'), 'T01_T02_T03_T04_T05_T06_T07_T08_T09_T10_T11_T12'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 1),
+    vi: new Locale('tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12'.split('_'), 'Thg 01_Thg 02_Thg 03_Thg 04_Thg 05_Thg 06_Thg 07_Thg 08_Thg 09_Thg 10_Thg 11_Thg 12'.split('_'), 'chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 1, {
+      btnOk: 'Chọn'
+    }),
     /**
      * Chinese
      */
-    zh: new Locale('一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'), '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'), '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'), '周日_周一_周二_周三_周四_周五_周六'.split('_'), '日_一_二_三_四_五_六'.split('_'), 1),
+    zh: new Locale('一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'), '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'), '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'), '周日_周一_周二_周三_周四_周五_周六'.split('_'), '日_一_二_三_四_五_六'.split('_'), 1, {
+      btnOk: '选择'
+    }),
     /**
      * Burmese
      */
