@@ -753,26 +753,17 @@ class _duDatePicker {
 			prevYear = _month == 0 ? _year - 1 : _year,
 			nextYear = _month == 11 ? _year + 1 : _year
 
-		hf.appendTo([
-			hf.createElem('span', { class: 'cal-month' }, _.config.i18n.months[prevMonth]),
-			hf.createElem('span', { class: 'cal-year' }, prevYear)
-		], prev.header)
+		hf.appendTo(hf.monthYearDOM.call(_, prevMonth, prevYear), prev.header)
 		hf.appendTo(_._getDates(prevYear, prevMonth), prev.datesHolder)
 		hf.appendTo([prev.header, prev.weekDays, prev.datesHolder], prev.wrapper)
 		viewsHolder.calendars.push(prev)
 
-		hf.appendTo([
-			hf.createElem('span', { class: 'cal-month' }, _.config.i18n.months[_month]),
-			hf.createElem('span', { class: 'cal-year' }, _year)
-		], inView.header)
+		hf.appendTo(hf.monthYearDOM.call(_, _month, _year), inView.header)
 		hf.appendTo(_._getDates(_year, _month), inView.datesHolder)
 		hf.appendTo([inView.header, inView.weekDays, inView.datesHolder], inView.wrapper)
 		viewsHolder.calendars.push(inView)
 
-		hf.appendTo([
-			hf.createElem('span', { class: 'cal-month' }, _.config.i18n.months[nextMonth]),
-			hf.createElem('span', { class: 'cal-year' }, nextYear)
-		], next.header)
+		hf.appendTo(hf.monthYearDOM.call(_, nextMonth, nextYear), next.header)
 		hf.appendTo(_._getDates(nextYear, nextMonth), next.datesHolder)
 		hf.appendTo([next.header, next.weekDays, next.datesHolder], next.wrapper)
 		viewsHolder.calendars.push(next)
@@ -932,10 +923,7 @@ class _duDatePicker {
 				datesHolder: hf.createElem('div', { class: 'dudp__dates-holder' })
 			}
 
-		hf.appendTo([
-			hf.createElem('span', { class: 'cal-month' }, _.config.i18n.months[_month]),
-			hf.createElem('span', { class: 'cal-year' }, _year)
-		], newCalEl.header)
+		hf.appendTo(hf.monthYearDOM.call(_, _month, _year), newCalEl.header)
 		hf.appendTo(newCalDates, newCalEl.datesHolder)
 		hf.appendTo([newCalEl.header, newCalEl.weekDays, newCalEl.datesHolder], newCalEl.wrapper)
 

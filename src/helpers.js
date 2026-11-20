@@ -354,6 +354,20 @@ export const hf = {
         return `<span>${weekDays.join('</span><span>')}</span>`
     },
     /**
+     * Creates the month and year heading of a calendar
+     * @param {number} month Month index (0 - 11)
+     * @param {number} year Year value
+     */
+    monthYearDOM (month, year) {
+        let locale = this.config.i18n,
+            monthElem = hf.createElem('span', { class: 'cal-month' }, locale.months[month]),
+            yearElem = hf.createElem('span', { class: 'cal-year' }, year)
+
+        // The placeholders stay clickable spans; the words around them are plain text
+        return (locale.monthTitle || '{month} {year}').split(/(\{month\}|\{year\})/).filter(Boolean).map(part =>
+            part === '{month}' ? monthElem : part === '{year}' ? yearElem : document.createTextNode(part))
+    },
+    /**
      * Converts date JSON to Date object
      * @param {Object} o Date breakdown (year, month, date)
      * @param {number} o.year Year value

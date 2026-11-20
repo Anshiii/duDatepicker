@@ -175,7 +175,6 @@
 .dcalendarpicker .dudp__cal-container .dudp__calendar .dudp__cal-month-year span {
   display: inline-block;
   cursor: pointer;
-  padding: 0 4px;
 }
 
 .dcalendarpicker .dudp__cal-container .dudp__calendar .dudp__weekdays {

@@ -4524,6 +4524,25 @@
       return "<span>".concat(weekDays.join('</span><span>'), "</span>");
     },
     /**
+     * Creates the month and year heading of a calendar
+     * @param {number} month Month index (0 - 11)
+     * @param {number} year Year value
+     */
+    monthYearDOM: function monthYearDOM(month, year) {
+      var locale = this.config.i18n,
+        monthElem = hf.createElem('span', {
+          class: 'cal-month'
+        }, locale.months[month]),
+        yearElem = hf.createElem('span', {
+          class: 'cal-year'
+        }, year);
+
+      // The placeholders stay clickable spans; the words around them are plain text
+      return (locale.monthTitle || '{month} {year}').split(/(\{month\}|\{year\})/).filter(Boolean).map(function (part) {
+        return part === '{month}' ? monthElem : part === '{year}' ? yearElem : document.createTextNode(part);
+      });
+    },
+    /**
      * Converts date JSON to Date object
      * @param {Object} o Date breakdown (year, month, date)
      * @param {number} o.year Year value
@@ -4728,8 +4747,9 @@
    * @param {string} dict.btnOk OK button text
    * @param {string} dict.btnCancel Cancel button text
    * @param {string} dict.btnClear Clear button text
+   * @param {string} [monthTitle] Calendar heading with {month} and {year}, e.g. '{year}年{month}'; defaults to '{month} {year}'
    */
-  function Locale(months, shortMonths, days, shortDays, shorterDays, firstDay, dict) {
+  function Locale(months, shortMonths, days, shortDays, shorterDays, firstDay, dict, monthTitle) {
     _classCallCheck(this, Locale);
     this.months = months;
     this.shortMonths = shortMonths || this.months.map(function (x) {
@@ -4744,6 +4764,7 @@
     });
     this.firstDay = firstDay;
     this.dict = hf.extend(DICT_DEFAULTS, dict);
+    this.monthTitle = monthTitle;
   });
   /**
    * Internationalization
@@ -4798,21 +4819,21 @@
      */
     ja: new Locale('1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'), null, '日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日'.split('_'), '日曜_月曜_火曜_水曜_木曜_金曜_土曜'.split('_'), '日_月_火_水_木_金_土'.split('_'), 7, {
       btnOk: '選択する'
-    }),
+    }, '{year}年{month}'),
     /**
      * Portuguese
      */
-    pt: new Locale('Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'), null, 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'), 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 1, {
+    pt: new Locale('Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'), null, 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'), 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'), 7, {
       btnOk: 'Selecione',
       btnCancel: 'Cancelar',
       btnClear: 'Clarear'
-    }),
+    }, '{month} de {year}'),
     /**
      * Vietnamese
      */
-    vi: new Locale('Tháng 1_Tháng 2_Tháng 3_Tháng 4_Tháng 5_Tháng 6_Tháng 7_Tháng 8_Tháng 9_Tháng 10_Tháng 11_Tháng 12'.split('_'), 'Thg 01_Thg 02_Thg 03_Thg 04_Thg 05_Thg 06_Thg 07_Thg 08_Thg 09_Thg 10_Thg 11_Thg 12'.split('_'), 'chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 1, {
+    vi: new Locale('tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12'.split('_'), 'Thg 01_Thg 02_Thg 03_Thg 04_Thg 05_Thg 06_Thg 07_Thg 08_Thg 09_Thg 10_Thg 11_Thg 12'.split('_'), 'chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 'CN_T2_T3_T4_T5_T6_T7'.split('_'), 7, {
       btnOk: 'Chọn'
-    }),
+    }, '{month} năm {year}'),
     /**
      * Chinese
      */
@@ -4822,14 +4843,14 @@
     /**
      * Burmese
      */
-    my: new Locale('ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ'.split('_'), 'ဇန်_ဖေ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူ_သြ_စက်_အောက်_နို_ဒီ'.split('_'), 'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split('_'), 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'), 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'), 1, {
+    my: new Locale('ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ'.split('_'), 'ဇန်_ဖေ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူ_သြ_စက်_အောက်_နို_ဒီ'.split('_'), 'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split('_'), 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'), 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'), 7, {
       btnCancel: 'ပယ်ဖျက်ပါ',
       btnClear: 'ရှင်းလင်းပါ'
     }),
     /**
      * Indonesian
      */
-    id: new Locale('Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember'.split('_'), 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des'.split('_'), 'Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu'.split('_'), 'Min_Sen_Sel_Rab_Kam_Jum_Sab'.split('_'), 'Mg_Sn_Sl_Rb_Km_Jm_Sb'.split('_'), 1, {
+    id: new Locale('Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember'.split('_'), 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des'.split('_'), 'Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu'.split('_'), 'Min_Sen_Sel_Rab_Kam_Jum_Sab'.split('_'), 'Mg_Sn_Sl_Rb_Km_Jm_Sb'.split('_'), 7, {
       btnCancel: 'Batal',
       btnClear: 'Hapus'
     }),
@@ -4839,7 +4860,7 @@
     ne: new Locale('जनवरी_फेब्रुअरी_मार्च_अप्रिल_मे_जुन_जुलाई_अगस्ट_सेप्टेम्बर_अक्टोबर_नोभेम्बर_डिसेम्बर'.split('_'), 'जन._फेब्रु._मार्च_अप्रि._मे_जुन_जुलाई._अग._सेप्ट._अक्टो._नोभे._डिसे.'.split('_'), 'आइतबार_सोमबार_मङ्गलबार_बुधबार_बिहिबार_शुक्रबार_शनिबार'.split('_'), 'आइत._सोम._मङ्गल._बुध._बिहि._शुक्र._शनि.'.split('_'), 'आ._सो._मं._बु._बि._शु._श.'.split('_'), 7, {
       btnCancel: 'रद्द गर्नुहोस्',
       btnClear: 'खाली गर्नुहोस्'
-    })
+    }, '{year} वर्ष {month} महिना')
   };
 
   /**
@@ -5697,27 +5718,15 @@
           nextMonth = _month == 11 ? 0 : _month + 1,
           prevYear = _month == 0 ? _year - 1 : _year,
           nextYear = _month == 11 ? _year + 1 : _year;
-        hf.appendTo([hf.createElem('span', {
-          class: 'cal-month'
-        }, _.config.i18n.months[prevMonth]), hf.createElem('span', {
-          class: 'cal-year'
-        }, prevYear)], prev.header);
+        hf.appendTo(hf.monthYearDOM.call(_, prevMonth, prevYear), prev.header);
         hf.appendTo(_._getDates(prevYear, prevMonth), prev.datesHolder);
         hf.appendTo([prev.header, prev.weekDays, prev.datesHolder], prev.wrapper);
         viewsHolder.calendars.push(prev);
-        hf.appendTo([hf.createElem('span', {
-          class: 'cal-month'
-        }, _.config.i18n.months[_month]), hf.createElem('span', {
-          class: 'cal-year'
-        }, _year)], inView.header);
+        hf.appendTo(hf.monthYearDOM.call(_, _month, _year), inView.header);
         hf.appendTo(_._getDates(_year, _month), inView.datesHolder);
         hf.appendTo([inView.header, inView.weekDays, inView.datesHolder], inView.wrapper);
         viewsHolder.calendars.push(inView);
-        hf.appendTo([hf.createElem('span', {
-          class: 'cal-month'
-        }, _.config.i18n.months[nextMonth]), hf.createElem('span', {
-          class: 'cal-year'
-        }, nextYear)], next.header);
+        hf.appendTo(hf.monthYearDOM.call(_, nextMonth, nextYear), next.header);
         hf.appendTo(_._getDates(nextYear, nextMonth), next.datesHolder);
         hf.appendTo([next.header, next.weekDays, next.datesHolder], next.wrapper);
         viewsHolder.calendars.push(next);
@@ -5857,11 +5866,7 @@
               class: 'dudp__dates-holder'
             })
           };
-        hf.appendTo([hf.createElem('span', {
-          class: 'cal-month'
-        }, _.config.i18n.months[_month]), hf.createElem('span', {
-          class: 'cal-year'
-        }, _year)], newCalEl.header);
+        hf.appendTo(hf.monthYearDOM.call(_, _month, _year), newCalEl.header);
         hf.appendTo(newCalDates, newCalEl.datesHolder);
         hf.appendTo([newCalEl.header, newCalEl.weekDays, newCalEl.datesHolder], newCalEl.wrapper);
         setTimeout(function () {

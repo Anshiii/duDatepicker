@@ -22,8 +22,9 @@ class Locale {
      * @param {string} dict.btnOk OK button text
      * @param {string} dict.btnCancel Cancel button text
      * @param {string} dict.btnClear Clear button text
+     * @param {string} [monthTitle] Calendar heading with {month} and {year}, e.g. '{year}年{month}'; defaults to '{month} {year}'
      */
-    constructor(months, shortMonths, days, shortDays, shorterDays, firstDay, dict) {
+    constructor(months, shortMonths, days, shortDays, shorterDays, firstDay, dict, monthTitle) {
         this.months = months
         this.shortMonths = shortMonths || this.months.map(x => x.substring(0, 3))
         this.days = days
@@ -31,6 +32,7 @@ class Locale {
         this.shorterDays = shorterDays || this.days.map(x => x.substring(0, 2))
         this.firstDay = firstDay
         this.dict = hf.extend(DICT_DEFAULTS, dict)
+        this.monthTitle = monthTitle
     }
 }
 
@@ -119,7 +121,8 @@ export const i18n = {
         7,
         {
           btnOk: '選択する',
-        }
+        },
+        '{year}年{month}'
       ),
     /**
      * Portuguese
@@ -130,24 +133,26 @@ export const i18n = {
         'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'),
         'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
         'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
-        1,
+        7,
         {
           btnOk: 'Selecione', btnCancel: 'Cancelar', btnClear: 'Clarear'
-        }
+        },
+        '{month} de {year}'
       ),
     /**
      * Vietnamese
      */
     vi: new Locale(
-        'Tháng 1_Tháng 2_Tháng 3_Tháng 4_Tháng 5_Tháng 6_Tháng 7_Tháng 8_Tháng 9_Tháng 10_Tháng 11_Tháng 12'.split('_'),
+        'tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12'.split('_'),
         'Thg 01_Thg 02_Thg 03_Thg 04_Thg 05_Thg 06_Thg 07_Thg 08_Thg 09_Thg 10_Thg 11_Thg 12'.split('_'),
         'chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy'.split('_'),
         'CN_T2_T3_T4_T5_T6_T7'.split('_'),
         'CN_T2_T3_T4_T5_T6_T7'.split('_'),
-        1,
+        7,
         {
           btnOk: 'Chọn',
-        }
+        },
+        '{month} năm {year}'
       ),
     /**
      * Chinese
@@ -170,7 +175,7 @@ export const i18n = {
         'ဇန်_ဖေ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူ_သြ_စက်_အောက်_နို_ဒီ'.split('_'),
         'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split('_'),
         'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'),
-        'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'), 1, {
+        'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'), 7, {
             btnCancel: 'ပယ်ဖျက်ပါ', btnClear: 'ရှင်းလင်းပါ'
         }),
     /**
@@ -180,7 +185,7 @@ export const i18n = {
         'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des'.split('_'),
         'Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu'.split('_'),
         'Min_Sen_Sel_Rab_Kam_Jum_Sab'.split('_'),
-        'Mg_Sn_Sl_Rb_Km_Jm_Sb'.split('_'), 1, {
+        'Mg_Sn_Sl_Rb_Km_Jm_Sb'.split('_'), 7, {
             btnCancel: 'Batal', btnClear: 'Hapus'
         }),
     /**
@@ -192,5 +197,5 @@ export const i18n = {
         'आइत._सोम._मङ्गल._बुध._बिहि._शुक्र._शनि.'.split('_'),
         'आ._सो._मं._बु._बि._शु._श.'.split('_'), 7, {
             btnCancel: 'रद्द गर्नुहोस्', btnClear: 'खाली गर्नुहोस्'
-        })
+        }, '{year} वर्ष {month} महिना')
 }
